@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sr. Hangman • Adivinhe & Salve-o</title>
+    <link rel="icon" type="image/png" href="res/img/marca.png">
+    <!-- Styles -->
+    <link rel="stylesheet" href="style/index.css">
+    <link rel="stylesheet" href="style/bootstrap.min.css">
+    <link rel="stylesheet" href="style/bootstrap-grid.min.css">
+    <!-- Scripts -->
+    <script type='text/javascript' src='script/knockout-3.5.js'></script>
+    <script type='text/javascript' src='script/jquery-3.5.1.min.js'></script>
+    <script type='text/javascript' src='script/bootstrap.min.js'></script>
+</head>
+<body>
+    <!-- Não esquecer de deixar só o conteúdo do body no arquivo original -->
+    <!-- <script type='text/javascript' src='script/models/index.js'></script> -->
+    <div class="container d-flex justify-content-center vertical-center">
+        <div class="jumbotron p-3 p-md-5 rounded" style="width:80%;">
+            <div class="row text-center">
+                <div class="col-md-6 right-border">
+                    <p class="text-primary font-weight-bold">Jogada Rápida</p>
+                    <img src="res/img/nerd.png" class="img-responsive"><br><br>
+                    <div class="text-left">
+                        <div class="form-group row mb-0">
+                            <div class="col-md-5 col-form-label text-secondary">
+                                <img src="res/img/usuario.png" class="img-responsive" width="20" height="20">&nbsp;
+                                <label for="nickname"><b>Nickname</b></label>
+                            </div>
+                            <div class="col-md-6 pl-0">
+                                <input id="nickname" type="text" class="form-control" placeholder="Gimli951">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-5 col-form-label text-secondary">
+                                <img src="res/img/idioma.png" class="img-responsive" width="19" height="20">&nbsp;
+                                <label for="idioma"><b>Idioma</b></label>
+                            </div>
+                            <div class="col-md-6 pl-0">
+                                <select id="idioma" class="custom-select">
+                                    <option value="en">English</option>
+                                    <option value="de">Deutsch</option>
+                                    <option value="pt" selected>Português</option>
+                                    <option value="jp">日本語</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="btn-action-sec">Regras</button>
+                    <button class="btn-action">Jogar!</button>
+                </div>
+                <div class="col-md-6">
+                    <p class="text-primary font-weight-bold">Cadastro / Login</p>
+                    <img src="res/img/nerd.png" class="img-responsive">
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Não esquecer de deixar só o conteúdo do body no arquivo original -->
+</body>
+</html>

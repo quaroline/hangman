@@ -1,0 +1,63 @@
+@import url('https://fonts.googleapis.com/css2?family=Varela+Round&display=swap');
+
+body {
+    background-image: url("../res/img/background.jpg");
+    background-size: cover;
+    text-transform: uppercase;
+    font-family: 'Varela Round', sans-serif!important;
+}
+
+select, input {
+    border: 2px solid #6c757d!important;
+    border-radius: 10px!important;
+}
+
+.vertical-center {
+    min-height: 100%;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+}
+
+.jumbotron {
+    background-color: white!important;
+}
+
+.right-border {
+    border-right-style: solid;
+    border-right-width: 2px;
+    border-color: #4c7ee5;
+}
+
+.btn-action {
+    background-color: #f7b239;
+    color: #0e3075;
+    font-weight: 1000;
+    text-transform: uppercase;
+    padding: 10px!important;
+    padding-left: 20px!important;
+    padding-right: 20px!important;
+    border: 4px solid #4d4d4d;
+    border-radius: 20px!important;
+}
+
+.btn-action:hover {
+    background-color: #e09b2d!important;
+}
+
+.btn-action-sec {
+    background-color: #4c7ee5;
+    color: white;
+    font-weight: 1000;
+    text-transform: uppercase;
+    padding: 10px!important;
+    padding-left: 20px!important;
+    padding-right: 20px!important;
+    border: 4px solid #4d4d4d;
+    border-radius: 20px!important;
+}
+
+.btn-action-sec:hover {
+    background-color: #0e3075!important;
+    color: white;
+}
