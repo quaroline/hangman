@@ -26,7 +26,7 @@
                         <div class="form-group row mb-0">
                             <div class="col-md-5 col-form-label text-secondary">
                                 <img src="res/img/usuario.png" class="img-responsive" width="20" height="20">&nbsp;
-                                <label for="nickname"><b>Nickname</b></label>
+                                <label for="nickname"><b data-bind="text: labelNickname">Nickname</b></label>
                             </div>
                             <div class="col-md-6 pl-0">
                                 <input id="nickname" type="text" class="form-control" placeholder="Gimli951">
@@ -63,38 +63,38 @@
                         </div>
                         <div class="form-group row mt-3" style="text-align: right;">
                             <div class="col-md-5 col-form-label text-secondary">
-                                <label for="nickname"><b>Nickname</b></label>
+                                <label for="nickname"><b data-bind="text: labelNickname">Nickname</b></label>
                             </div>
                             <div class="col-md-6 pl-0">
                                 <input id="nickname" type="text" class="form-control" placeholder="Gimli951">
                             </div>
                             <div class="col-md-5 col-form-label text-secondary">
-                                <label for="email"><b>E-mail</b></label>
+                                <label for="email"><b data-bind="text: labelEmail">E-mail</b></label>
                             </div>
                             <div class="col-md-6 pl-0">
                                 <input id="email" type="text" class="form-control" placeholder="lord_gimli@gmail.com">
                             </div>
                             <div class="col-md-5 col-form-label text-secondary">
-                                <label for="senha"><b>Senha</b></label>
+                                <label for="senha"><b data-bind="text: labelSenha">Senha</b></label>
                             </div>
                             <div class="col-md-6 pl-0">
                                 <input id="senha" type="text" class="form-control" placeholder="******">
                             </div>
                             <div class="col-md-12 mt-3" style="text-align: center!important;">
-                                <button id="nickname" type="button" class="btn-action" data-bind="text: labelCadastro"></button>
+                                <button id="cadastrar" type="button" class="btn-action" data-bind="text: labelCadastro"></button>
                             </div>
                         </div>
                     </div>
                     <div class="mt-5">
                         <div class="row">
                             <div class="col-md-4" style="padding-right: 0!important;">
-                                <input id="nickname" type="text" class="form-control" placeholder="Nickname">
+                                <input id="nickname" type="text" class="form-control" data-bind="attr: { placeholder: labelNickname() }">
                             </div>
                             <div class="col-md-4" style="padding-right: 0!important;">
-                                <input id="nickname" type="text" class="form-control" placeholder="******">
+                                <input id="senha" type="text" class="form-control" placeholder="******">
                             </div>
                             <div class="col-md-4">
-                                <button id="nickname" type="button" class="btn-action" data-bind="text: labelLogin">
+                                <button id="entrar" type="button" class="btn-action" data-bind="text: labelLogin">
                             </div>
                         </div>
                     </div>

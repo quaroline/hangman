@@ -18,7 +18,10 @@ function viewModel() {
                 { label: 'Aviso', palavra: 'Aviso' },
                 { label: 'Favoritar', palavra: 'Favorite Salas' },
                 { label: 'MarcarPontos', palavra: 'Marque Pontos' },
-                { label: 'Chat', palavra: 'Bata papo c/ amigos' }
+                { label: 'Chat', palavra: 'Bata papo c/ amigos' },
+                { label: 'Nickname', palavra: 'Nickname' },
+                { label: 'Senha', palavra: 'Senha' },
+                { label: 'Email', palavra: 'E-mail' },
             ]
         },
         { codigo: 'de', palavras: 
@@ -32,6 +35,9 @@ function viewModel() {
                 { label: 'Chat', palavra: 'Mit Freunden unterhalten' },
                 { label: 'Favoritar', palavra: 'Lieblingszimmer' },
                 { label: 'MarcarPontos', palavra: 'Punkten' },
+                { label: 'Nickname', palavra: 'Spitzname' },
+                { label: 'Senha', palavra: 'Passwort' },
+                { label: 'Email', palavra: 'E-mail' },
                 { label: 'Aviso', palavra: 'Warnung', aviso: 'Dieses Spiel wurde noch nicht zu 100% in die ausgewählte Sprache übersetzt. Bitte wählen Sie eine andere Sprache.' }
             ]
         },
@@ -46,6 +52,9 @@ function viewModel() {
                 { label: 'Chat', palavra: 'Chat w/ friends' },
                 { label: 'Favoritar', palavra: 'Favorite Rooms' },
                 { label: 'MarcarPontos', palavra: 'Score Points' },
+                { label: 'Nickname', palavra: 'Nickname' },
+                { label: 'Senha', palavra: 'Password' },
+                { label: 'Email', palavra: 'E-mail' },
                 { label: 'Aviso', palavra: 'Warning', aviso: 'This game has not yet been 100% translated into the selected language. Please choose another language.' }
             ]
         },
@@ -60,6 +69,9 @@ function viewModel() {
                 { label: 'Chat', palavra: '友達とチャット' },
                 { label: 'Favoritar', palavra: 'お気に入りの部屋' },
                 { label: 'MarcarPontos', palavra: '得点' },
+                { label: 'Nickname', palavra: 'ニックネーム' },
+                { label: 'Senha', palavra: 'パスワード' },
+                { label: 'Email', palavra: 'メール' },
                 { label: 'Aviso', palavra: '警告', aviso: 'このゲームはまだ選択した言語に100％翻訳されていません。 別の言語を選択してください。' }
             ]
         }
@@ -78,6 +90,9 @@ function viewModel() {
     this.labelCadastro = ko.observable("");
     this.labelLogin = ko.observable("");
     this.labelDescricaoAviso = ko.observable("");
+    this.labelSenha = ko.observable("");
+    this.labelEmail = ko.observable("");
+    this.labelNickname = ko.observable("");
 
     this.idiomaSelecionado.subscribe(v => {
         if (v) {
@@ -97,6 +112,9 @@ function viewModel() {
             this.labelJogadaRapida(palavras.find(p => p.label == 'JogadaRapida').palavra);
             this.labelCadastro(palavras.find(p => p.label == 'Cadastro').palavra);
             this.labelLogin(palavras.find(p => p.label == 'Login').palavra);
+            this.labelSenha(palavras.find(p => p.label == 'Senha').palavra);
+            this.labelEmail(palavras.find(p => p.label == 'Email').palavra);
+            this.labelNickname(palavras.find(p => p.label == 'Nickname').palavra);
 
             if (v !== 'pt')
                 this.labelDescricaoAviso(palavras.find(p => p.label == 'Aviso').aviso);
@@ -104,6 +122,10 @@ function viewModel() {
     });
 
     this.idiomaSelecionado('pt');
+
+    this.cadastrar = function () {
+
+    }
 }
 
 ko.applyBindings(new viewModel());
