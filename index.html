@@ -16,12 +16,11 @@
 </head>
 <body>
     <!-- Não esquecer de deixar só o conteúdo do body no arquivo original -->
-    <!-- <script type='text/javascript' src='script/models/index.js'></script> -->
     <div class="container d-flex justify-content-center vertical-center">
         <div class="jumbotron p-3 p-md-5 rounded" style="width:80%;">
             <div class="row text-center">
                 <div class="col-md-6 right-border">
-                    <p class="text-primary font-weight-bold">Jogada Rápida</p>
+                    <p class="text-primary font-weight-bold" data-bind="text: labelJogadaRapida">Jogada Rápida</p>
                     <img src="res/img/nerd.png" class="img-responsive"><br><br>
                     <div class="text-left">
                         <div class="form-group row mb-0">
@@ -36,28 +35,80 @@
                         <div class="form-group row">
                             <div class="col-md-5 col-form-label text-secondary">
                                 <img src="res/img/idioma.png" class="img-responsive" width="19" height="20">&nbsp;
-                                <label for="idioma"><b>Idioma</b></label>
+                                <label for="idioma"><b data-bind="text: labelIdioma">Idioma</b></label>
                             </div>
                             <div class="col-md-6 pl-0">
-                                <select id="idioma" class="custom-select">
-                                    <option value="en">English</option>
-                                    <option value="de">Deutsch</option>
-                                    <option value="pt" selected>Português</option>
-                                    <option value="jp">日本語</option>
-                                </select>
+                                <select id="idioma" class="custom-select" data-bind="options: idiomas, optionsText: 'idioma', optionsValue: 'codigo', value: idiomaSelecionado"></select>
                             </div>
                         </div>
                     </div>
-                    <button class="btn-action-sec">Regras</button>
-                    <button class="btn-action">Jogar!</button>
+                    <button class="btn-action-sec" data-bind="text: labelRegras">Regras</button>
+                    <button class="btn-action" data-bind="text: labelJogar() + '!'">Jogar</button>
                 </div>
                 <div class="col-md-6">
-                    <p class="text-primary font-weight-bold">Cadastro / Login</p>
-                    <img src="res/img/nerd.png" class="img-responsive">
+                    <div class="mb-3">
+                        <div class="row infos" style="padding:7px;padding-top:0">
+                            <div class="col-md-4">
+                                <img src="res/img/score.png" style="height: 90px">
+                                <label data-bind="text: labelMarcarPontos"></label>
+                            </div>
+                            <div class="col-md-4">
+                                <img src="res/img/chat.png" style="height: 90px">
+                                <label data-bind="text: labelChat"></label>
+                            </div>
+                            <div class="col-md-4">
+                                <img src="res/img/heart.png" style="height: 90px">
+                                <label data-bind="text: labelFavoritar"></label>
+                            </div>
+                        </div>
+                        <div class="form-group row mt-3" style="text-align: right;">
+                            <div class="col-md-5 col-form-label text-secondary">
+                                <label for="nickname"><b>Nickname</b></label>
+                            </div>
+                            <div class="col-md-6 pl-0">
+                                <input id="nickname" type="text" class="form-control" placeholder="Gimli951">
+                            </div>
+                            <div class="col-md-5 col-form-label text-secondary">
+                                <label for="email"><b>E-mail</b></label>
+                            </div>
+                            <div class="col-md-6 pl-0">
+                                <input id="email" type="text" class="form-control" placeholder="lord_gimli@gmail.com">
+                            </div>
+                            <div class="col-md-5 col-form-label text-secondary">
+                                <label for="senha"><b>Senha</b></label>
+                            </div>
+                            <div class="col-md-6 pl-0">
+                                <input id="senha" type="text" class="form-control" placeholder="******">
+                            </div>
+                            <div class="col-md-12 mt-3" style="text-align: center!important;">
+                                <button id="nickname" type="button" class="btn-action" data-bind="text: labelCadastro"></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-5">
+                        <div class="row">
+                            <div class="col-md-4" style="padding-right: 0!important;">
+                                <input id="nickname" type="text" class="form-control" placeholder="Nickname">
+                            </div>
+                            <div class="col-md-4" style="padding-right: 0!important;">
+                                <input id="nickname" type="text" class="form-control" placeholder="******">
+                            </div>
+                            <div class="col-md-4">
+                                <button id="nickname" type="button" class="btn-action" data-bind="text: labelLogin">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12" data-bind="visible: idiomaSelecionado() != 'pt'">
+                    <div class="aviso">
+                        <h5 class="font-weight-bold text-danger" data-bind="text: labelAviso() +'!'"></h5>
+                        <p data-bind="text: labelDescricaoAviso"></p>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+    <script type='text/javascript' src='script/models/index.js'></script>
     <!-- Não esquecer de deixar só o conteúdo do body no arquivo original -->
 </body>
 </html>
