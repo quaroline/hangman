@@ -31,16 +31,18 @@ function viewModel() {
 
     let palavraSorteadaSeparada = palavraSorteada.palavra.split('');
 
-    let palavraCensurada = palavraSorteada.palavra.replace(/[A-zç]/gi,'_').split('');
+    let palavraCensuradaSeparada = palavraSorteada.palavra.replace(/[A-zç]/gi,'_').split('');
 
-    vm.palavraCensurada = ko.observableArray(palavraCensurada);
+    vm.palavraSorteadaSeparada = ko.observableArray(palavraSorteadaSeparada);
+
+    vm.palavraCensuradaSeparada = ko.observableArray(palavraCensuradaSeparada);
 
     vm.pontuacao = ko.observable(0);
 
     vm.pontuacao.subscribe(v => {
         if (v) {
             animar();
-            
+
             if (v == 6) {
                 toastr.error("Que pena, você matou o Sr. Hangman.");
                 vm.jogoFinalizado(true);
@@ -48,15 +50,13 @@ function viewModel() {
         }
     });
 
-    vm.palavraCensurada.subscribe(v => {
-        if (v && !vm.palavraCensurada().includes("_")) {
+    vm.palavraCensuradaSeparada.subscribe(v => {
+        if (v && !vm.palavraCensuradaSeparada().includes("_")) {
             vm.jogoFinalizado(true);
 
             toastr.success("Parabéns! Você venceu o jogo!");
         }
     });
-
-    vm.palavraCensurada.valueHasMutated();
     
     let dicaUtilizada = false;
 
@@ -78,10 +78,10 @@ function viewModel() {
             } else {
                 for (let i = 0; i < palavraSorteadaSeparada.length; i++) {
                     if (palavraSorteadaSeparada[i].toLowerCase() == data) {
-                        var clone = vm.palavraCensurada.slice(0);
+                        var clone = vm.palavraCensuradaSeparada.slice(0);
                         clone[i] = data;
 
-                        vm.palavraCensurada(clone);
+                        vm.palavraCensuradaSeparada(clone);
                     }
                 }         
             }    

@@ -24,10 +24,10 @@
                 <div class="col-md-12">
                     <canvas id="stickman"></canvas>
                 </div>
-                <div class="col-md-12" data-bind="foreach: palavraCensurada()">
+                <!-- ko if: !jogoFinalizado() -->
+                <div class="col-md-12" data-bind="foreach: palavraCensuradaSeparada()">
                     <span class="underline" data-bind="text: $data"></span>
                 </div>
-                <!-- ko if: !jogoFinalizado() -->
                 <div data-bind="foreach: alfabeto" class="text-center mt-5 mr-5 ml-5">
                     <button class="btn-action mb-2" data-bind="text: $data, click: $root.selecionarLetra"></button>
                 </div>
@@ -36,7 +36,10 @@
                 </div>
                 <!-- /ko -->
                 <!-- ko if: jogoFinalizado() -->
-                <div class="col-md-12 mt-5">
+                <div class="col-md-12" data-bind="foreach: palavraSorteadaSeparada()">
+                    <span class="underline" data-bind="text: $data"></span>
+                </div>
+                <div class="col-md-12">
                     <button class="btn-action-danger" data-bind="click: novoJogo">Novo Jogo</button>
                 </div>
                 <!-- /ko -->
