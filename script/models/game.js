@@ -39,9 +39,9 @@ function viewModel() {
 
     vm.pontuacao.subscribe(v => {
         if (v) {
-            if (v < 6) {
-                animar();
-            } else {
+            animar();
+            
+            if (v == 6) {
                 toastr.error("Que pena, você matou o Sr. Hangman.");
                 vm.jogoFinalizado(true);
             }
@@ -73,14 +73,18 @@ function viewModel() {
 
     vm.selecionarLetra = function(data) {
         if (data) {
-            for (let i = 0; i < palavraSorteadaSeparada.length; i++) {
-                if (palavraSorteadaSeparada[i].toLowerCase() == data) {
-                    var clone = vm.palavraCensurada.slice(0);
-                    clone[i] = data;
+            if (!palavraSorteadaSeparada.includes(data) || !palavraSorteadaSeparada.includes(data.toUpperCase())) {
+                vm.pontuacao(vm.pontuacao() + 1);
+            } else {
+                for (let i = 0; i < palavraSorteadaSeparada.length; i++) {
+                    if (palavraSorteadaSeparada[i].toLowerCase() == data) {
+                        var clone = vm.palavraCensurada.slice(0);
+                        clone[i] = data;
 
-                    vm.palavraCensurada(clone);
-                }
-            }             
+                        vm.palavraCensurada(clone);
+                    }
+                }         
+            }    
         }
     }
 
