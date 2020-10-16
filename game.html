@@ -31,10 +31,15 @@
                 <div data-bind="foreach: alfabeto" class="text-center mt-5 mr-5 ml-5">
                     <button class="btn-action mb-2" data-bind="text: $data, click: $root.selecionarLetra"></button>
                 </div>
-                <!-- /ko -->
                 <div class="col-md-12 mt-5">
                     <button class="btn-action-danger" data-bind="click: abrirDica">Dica</button>
                 </div>
+                <!-- /ko -->
+                <!-- ko if: jogoFinalizado() -->
+                <div class="col-md-12 mt-5">
+                    <button class="btn-action-danger" data-bind="click: novoJogo">Novo Jogo</button>
+                </div>
+                <!-- /ko -->
             </div>
         </div>
     </div>
