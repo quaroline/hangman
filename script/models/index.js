@@ -1,12 +1,14 @@
 function viewModel() {
-    this.idiomas = ko.observableArray([
+    let vm = this;
+
+    vm.idiomas = ko.observableArray([
         { idioma: 'English', codigo: 'en' }, 
         { idioma: 'Deutsch', codigo: 'de' },
         { idioma: 'Português', codigo: 'pt' },
         { idioma: '日本語', codigo: 'jp' } 
     ]);
 
-    this.labels = [
+    vm.labels = [
         { codigo: 'pt', palavras: 
             [
                 { label: 'JogadaRapida', palavra: 'Jogada Rápida' },
@@ -77,54 +79,80 @@ function viewModel() {
         }
     ];
 
-    this.idiomaSelecionado = ko.observable();
+    vm.idiomaSelecionado = ko.observable();
 
-    this.labelChat = ko.observable("");
-    this.labelJogar = ko.observable("");
-    this.labelAviso = ko.observable("");
-    this.labelIdioma = ko.observable("");
-    this.labelRegras = ko.observable("");
-    this.labelFavoritar = ko.observable("");
-    this.labelMarcarPontos = ko.observable("");
-    this.labelJogadaRapida = ko.observable("");
-    this.labelCadastro = ko.observable("");
-    this.labelLogin = ko.observable("");
-    this.labelDescricaoAviso = ko.observable("");
-    this.labelSenha = ko.observable("");
-    this.labelEmail = ko.observable("");
-    this.labelNickname = ko.observable("");
+    vm.labelChat = ko.observable("");
+    vm.labelJogar = ko.observable("");
+    vm.labelAviso = ko.observable("");
+    vm.labelIdioma = ko.observable("");
+    vm.labelRegras = ko.observable("");
+    vm.labelFavoritar = ko.observable("");
+    vm.labelMarcarPontos = ko.observable("");
+    vm.labelJogadaRapida = ko.observable("");
+    vm.labelCadastro = ko.observable("");
+    vm.labelLogin = ko.observable("");
+    vm.labelDescricaoAviso = ko.observable("");
+    vm.labelSenha = ko.observable("");
+    vm.labelEmail = ko.observable("");
+    vm.labelNickname = ko.observable("");
 
-    this.idiomaSelecionado.subscribe(v => {
+    vm.idiomaSelecionado.subscribe(v => {
         if (v) {
-            const palavras = this.labels.find(el => el.codigo == v).palavras;
+            const palavras = vm.labels.find(el => el.codigo == v).palavras;
 
             if (!palavras) {
-                alert("Erro interno.");
+                toastr.error("Erro interno.");
             }
 
-            this.labelChat(palavras.find(p => p.label == 'Chat').palavra);
-            this.labelJogar(palavras.find(p => p.label == 'Jogar').palavra);
-            this.labelAviso(palavras.find(p => p.label == 'Aviso').palavra);
-            this.labelIdioma(palavras.find(p => p.label == 'Idioma').palavra);
-            this.labelRegras(palavras.find(p => p.label == 'Regras').palavra);
-            this.labelFavoritar(palavras.find(p => p.label == 'Favoritar').palavra);
-            this.labelMarcarPontos(palavras.find(p => p.label == 'MarcarPontos').palavra);
-            this.labelJogadaRapida(palavras.find(p => p.label == 'JogadaRapida').palavra);
-            this.labelCadastro(palavras.find(p => p.label == 'Cadastro').palavra);
-            this.labelLogin(palavras.find(p => p.label == 'Login').palavra);
-            this.labelSenha(palavras.find(p => p.label == 'Senha').palavra);
-            this.labelEmail(palavras.find(p => p.label == 'Email').palavra);
-            this.labelNickname(palavras.find(p => p.label == 'Nickname').palavra);
+            vm.labelChat(palavras.find(p => p.label == 'Chat').palavra);
+            vm.labelJogar(palavras.find(p => p.label == 'Jogar').palavra);
+            vm.labelAviso(palavras.find(p => p.label == 'Aviso').palavra);
+            vm.labelIdioma(palavras.find(p => p.label == 'Idioma').palavra);
+            vm.labelRegras(palavras.find(p => p.label == 'Regras').palavra);
+            vm.labelFavoritar(palavras.find(p => p.label == 'Favoritar').palavra);
+            vm.labelMarcarPontos(palavras.find(p => p.label == 'MarcarPontos').palavra);
+            vm.labelJogadaRapida(palavras.find(p => p.label == 'JogadaRapida').palavra);
+            vm.labelCadastro(palavras.find(p => p.label == 'Cadastro').palavra);
+            vm.labelLogin(palavras.find(p => p.label == 'Login').palavra);
+            vm.labelSenha(palavras.find(p => p.label == 'Senha').palavra);
+            vm.labelEmail(palavras.find(p => p.label == 'Email').palavra);
+            vm.labelNickname(palavras.find(p => p.label == 'Nickname').palavra);
 
             if (v !== 'pt')
-                this.labelDescricaoAviso(palavras.find(p => p.label == 'Aviso').aviso);
+                vm.labelDescricaoAviso(palavras.find(p => p.label == 'Aviso').aviso);
         }
     });
 
-    this.idiomaSelecionado('pt');
+    vm.idiomaSelecionado('pt');
 
-    this.cadastrar = function () {
+    let api = 'https://ulbra-hanged.herokuapp.com/api/';
 
+    vm.nickname = ko.observable();
+    vm.password = ko.observable();
+    vm.login = ko.observable();
+    
+    vm.newNickname = ko.observable();
+    vm.newEmail = ko.observable();
+    vm.newPassword = ko.observable();
+
+    vm.quickPlayNickname = ko.observable();
+
+    vm.cadastrar = function () {
+        if (!vm.newEmail() || !vm.newNickname() || !vm.newPassword()) {
+            toastr.error("Preencha todos os campos.");
+        }
+
+        $.post(`${api}/users`, {
+            name: vm.newNickname(),
+            email: vm.newEmail(),
+            password: vm.newPassword()
+        }).done(function(s) {
+            console.log(e);
+            alert("Sucesso. Olha o console");
+        }).fail(function(e) {
+            console.log(e);
+            alert("Erro. Olha o console");
+        });
     }
 }
 

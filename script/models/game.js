@@ -29,9 +29,9 @@ function viewModel() {
 
     let palavraSorteada = palavras[indicePalavraSorteada];
 
-    let palavraSorteadaSeparada = palavraSorteada.palavra.split('');
+    let palavraSorteadaSeparada = palavraSorteada.palavra.split('').map(v => v.toLowerCase());
 
-    let palavraCensuradaSeparada = palavraSorteada.palavra.replace(/[A-zç]/gi,'_').split('');
+    let palavraCensuradaSeparada = palavraSorteada.palavra.replace(/[A-zç]/gi,'_').split('').map(v => v.toLowerCase());
 
     vm.palavraSorteadaSeparada = ko.observableArray(palavraSorteadaSeparada);
 
@@ -73,11 +73,11 @@ function viewModel() {
 
     vm.selecionarLetra = function(data) {
         if (data) {
-            if (!palavraSorteadaSeparada.includes(data) || !palavraSorteadaSeparada.includes(data.toUpperCase())) {
+            if (!palavraSorteadaSeparada.includes(data) || !palavraSorteadaSeparada.includes(data)) {
                 vm.pontuacao(vm.pontuacao() + 1);
             } else {
                 for (let i = 0; i < palavraSorteadaSeparada.length; i++) {
-                    if (palavraSorteadaSeparada[i].toLowerCase() == data) {
+                    if (palavraSorteadaSeparada[i] == data) {
                         var clone = vm.palavraCensuradaSeparada.slice(0);
                         clone[i] = data;
 
@@ -95,6 +95,7 @@ function viewModel() {
     let desenharCabeca = function() {
         myStickman = document.getElementById("stickman");
         context = myStickman.getContext('2d');
+
         context.beginPath();
         context.arc(60, 25, 10, 0, Math.PI*2, true);
         context.stroke();
@@ -123,7 +124,9 @@ function viewModel() {
     myStickman = document.getElementById("stickman");
 
     let context = myStickman.getContext('2d');
+
     context.beginPath();
+
     context.strokeStyle = "#4d4d4d";
     context.lineWidth = 3;
 
