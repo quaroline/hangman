@@ -129,7 +129,7 @@ function viewModel() {
 
     vm.nickname = ko.observable();
     vm.password = ko.observable();
-    vm.login = ko.observable();
+    vm.email = ko.observable();
     
     vm.newNickname = ko.observable();
     vm.newEmail = ko.observable();
@@ -156,7 +156,7 @@ function viewModel() {
 
             toastr.success("Usuário criado com sucesso.");
 
-            window.location = '/game.html';
+            window.location = 'game.html';
         }).fail(function(e) {
             if (e && e.responseText && e.respondeText.includes("Duplicate entry")) {
                 toastr.error("Já existe um usuário com estas credenciais.");
