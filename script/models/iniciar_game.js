@@ -9,6 +9,8 @@ function viewModel() {
 
     let api = 'https://ulbra-hanged.herokuapp.com/api';
 
+    alert("Todos alerts estão zoados.");
+
     $.get(`${api}/categories`).done(function(s) {
         vm.categorias(s.data);
     }).fail(function(e) {
@@ -31,25 +33,33 @@ function viewModel() {
 
     vm.iniciarJogo = function () {
         if (!vm.oponenteSelecionado() || !vm.categoriaSelecionada()) {
-            //todo
             toastr.warning("Selecione um oponente e uma categoria antes de iniciar o jogo.");
 
             return;
         }
 
-        const user = JSON.parse(localStorage.getItem('hangman_user'));
+        const user = localStorage.getItem('hangman_user');
 
         if (!user) {
-            toastr.error("Erro interno. Contate um administrador.");
+            toastr.error("Erro interno.");
 
             return;
         }
 
-        localStorage.setItem('hangman_user', JSON.stringify(
-            { player_one_id: user.id, player_two_id: vm.oponenteSelecionado() }
-        ));
+        let partida = {
+            player_two_id: vm.oponenteSelecionado(),
+            player_one_id: user.id,
+            indexPalavra: 0
+        };
 
-        window.location.href = 'game.html';
+        $.post(`${api}/pvp-games`, partida).done(function(s) {
+            partida.id = s.id;
+
+            localStorage.setItem('partida', JSON.stringify(partida));
+            window.location.href = 'game.html';
+        }).fail(function(e) {
+            toastr.error("Credenciais erradas.");
+        });
     }
 }
 
