@@ -8,6 +8,8 @@ function viewModel(){
     vm.dica = ko.observable();
     vm.escolhaCategoria = ko.observable();
     vm.novaCategoria = ko.observable();
+    // vm.idCategoria = ko.observable();
+    // vm.idPalavra = ko.observable();
     
     vm.palavrasArray = ko.observableArray();
     vm.categoriasArray = ko.observableArray();
@@ -34,7 +36,6 @@ function viewModel(){
         if (!vm.novaCategoria()) {
             toastr.error("Preencha todos os campos.");
         }
-
         $.post(`${api}/categories`, {
             name: vm.novaCategoria()
         }).done(function(s) {
@@ -47,8 +48,17 @@ function viewModel(){
         });
     }
 
+    vm.deletarPalavra = () =>{
+        return true;
+        // $.delete(`${api}/words/${id}`)
+        //     .done(response => {
+        //         response?.data.map(r => vm.categoriasArray.push(r));
+        //     }).fail(error => console.log(error));
+    }
+
     vm.buscarPalavras = () => {
-        vm.palavrasArray = ko.observableArray();
+        vm.palavrasArray.destroyAll();
+        vm.palavrasArray.removeAll();
         $.get(`${api}/words`)
             .done(response => {
                 response?.data.map(r => vm.palavrasArray.push(r));
@@ -62,14 +72,7 @@ function viewModel(){
             .done(response => {
                 response?.data.map(r => vm.categoriasArray.push(r));
             }).fail(error => console.log(error));
-    }
-
-    // vm.deletarPalavra(id) = () =>{
-    //     $.delete(`${api}/words/${id}`)
-    //         .done(response => {
-    //             response?.data.map(r => vm.categoriasArray.push(r));
-    //         }).fail(error => console.log(error));
-    // }
+    }    
 
     vm.buscarPalavras();
     vm.buscarCategorias();
