@@ -51,10 +51,13 @@
                 <select
                   id="escolhaCategoria"
                   class="form-control"
-                  data-bind="value: escolhaCategoria, option: categoriasArray()"
+                  data-bind="options: categoriasArray,
+                  optionsText: 'name',
+                  optionsValue: 'id',
+                  value:escolhaCategoria
+                  "
                   required
                 >
-                <option value="" data-bind="text: name"></option>
                 </select>
               </div>
               <div class="col-md-3">
@@ -112,9 +115,9 @@
                       <tbody data-bind="foreach: palavrasArray()">
                           <tr>
                             <td>
-                              <a href="" id="deletar" class="deletar"
-                                ><img src="./res/img/pencil.png" alt="Editar"
-                              /></a>
+                                <a href="" id="deletar" class="deletar">
+                                    <img src="./res/img/pencil.png" alt="Editar"/>
+                                </a>
                             </td>
                             <td>
                               <a href=""

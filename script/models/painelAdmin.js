@@ -64,9 +64,12 @@ function viewModel(){
             }).fail(error => console.log(error));
     }
 
-    vm.deletarPalavra = () =>{
-
-    }
+    // vm.deletarPalavra(id) = () =>{
+    //     $.delete(`${api}/words/${id}`)
+    //         .done(response => {
+    //             response?.data.map(r => vm.categoriasArray.push(r));
+    //         }).fail(error => console.log(error));
+    // }
 
     vm.buscarPalavras();
     vm.buscarCategorias();
