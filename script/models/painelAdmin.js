@@ -48,12 +48,11 @@ function viewModel(){
         });
     }
 
-    vm.deletarPalavra = () =>{
-        return true;
-        // $.delete(`${api}/words/${id}`)
-        //     .done(response => {
-        //         response?.data.map(r => vm.categoriasArray.push(r));
-        //     }).fail(error => console.log(error));
+    vm.deletarPalavra = (data,evento) =>{ 
+        $.ajax({ type: "DELETE",
+            url: `${api}/words/${data.id}`, 
+            success: function(msg){ console.log('asdas');} 
+        });
     }
 
     vm.buscarPalavras = () => {

@@ -104,8 +104,8 @@
                   <table>
                       <thead>
                           <tr>
-                            <td>Deletar</td>
                             <td>Editar</td>
+                            <td>Deletar</td>
                             <td>Código</td>
                             <td>Categoria</td>
                             <td>Nome</td>
@@ -115,12 +115,12 @@
                       <tbody data-bind="foreach: palavrasArray()">
                           <tr>
                             <td>
-                                <a href="">
+                                <a  >
                                     <img src="./res/img/pencil.png" alt="Editar"/>
                                 </a>
                             </td>
                             <td>
-                              <a href=""
+                              <a id="deletar" class="deletar" data-bind="click: $root.deletarPalavra"
                               ><img src="./res/img/trashCan.png" alt="Excluir"
                             /></a>
                             </td>
@@ -145,7 +145,6 @@
                       <thead>
                           <tr>
                             <th>Editar</th>
-                            <th>Deletar</th>
                             <th>Código</th>
                             <th>Nome</td>
                           </tr>
@@ -156,11 +155,6 @@
                                 <a href=""
                                 ><img src="./res/img/pencil.png" alt="Editar"
                                 /></a>
-                            </td>
-                            <td>
-                            <a href=""
-                            ><img src="./res/img/trashCan.png" alt="Excluir"
-                            /></a>
                             </td>
                             <td data-bind="text: id"></td>
                             <td data-bind="text: name"></td>
