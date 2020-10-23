@@ -50,12 +50,12 @@ function viewModel() {
 
         let partida = {
             player_two_id: vm.oponenteSelecionado(),
-            player_one_id: userVm.id,
-            indexPalavra: 0
+            player_one_id: userVm.id
         };
 
         $.post(`${api}/pvp-games`, partida).done(function(s) {
             partida.id = s.id;
+            partida.indexPalavra = 0;
 
             localStorage.setItem('partida', JSON.stringify(partida));
             window.location.href = 'game.html';
