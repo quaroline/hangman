@@ -51,12 +51,10 @@
                 <select
                   id="escolhaCategoria"
                   class="form-control"
-                  data-bind="value: escolhaCategoria"
+                  data-bind="value: escolhaCategoria, option: categoriasArray()"
                   required
                 >
-                  <option value="" disabled="" hidden="" selected>
-                    Categoria
-                  </option>
+                <option value="" data-bind="text: name"></option>
                 </select>
               </div>
               <div class="col-md-3">
@@ -162,7 +160,7 @@
                             ><img src="./res/img/trashCan.png" alt="Excluir"
                             /></a>
                             </td>
-                            <td>1</td>
+                            <td data-bind="text: id"></td>
                             <td data-bind="text: name"></td>
                           </tr>
                       </tbody>

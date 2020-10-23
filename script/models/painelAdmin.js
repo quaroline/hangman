@@ -56,13 +56,16 @@ function viewModel(){
     }
 
     vm.buscarCategorias = () => {
-        console.log('cara, chegou aqui')
         vm.categoriasArray.destroyAll();
         vm.categoriasArray.removeAll();
         $.get(`${api}/categories`)
             .done(response => {
                 response?.data.map(r => vm.categoriasArray.push(r));
             }).fail(error => console.log(error));
+    }
+
+    vm.deletarPalavra = () =>{
+
     }
 
     vm.buscarPalavras();
