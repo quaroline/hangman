@@ -1,4 +1,5 @@
 function viewModel(){
+    console.log('dalhe')
     let vm = this;
 
     let api = 'https://ulbra-hanged.herokuapp.com/api';
@@ -44,3 +45,5 @@ function viewModel(){
     }
 
 }
+
+ko.applyBindings(new viewModel());
