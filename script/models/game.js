@@ -201,11 +201,11 @@ function viewModel() {
     let desenharPernaDireito = function() { desenhar(60, 70, 100, 100); };
     let desenharPernaEsquerdo = function() { desenhar(60, 70, 20, 100); };
 
-    let desenhos = [ desenharPernaEsquerdo, desenharPernaDireito, desenharBracoEsquerdo, desenharBracoDireito, desenharTorso, desenharCabeca ];
+    let desenhos = [ desenharCabeca, desenharTorso, desenharBracoDireito, desenharBracoEsquerdo, desenharPernaDireito, desenharPernaEsquerdo ];
 
     var animar = function() {
         let drawMe = vm.pontuacao();
-
+        debugger;
         desenhos[drawMe - 1]();
     }
 
