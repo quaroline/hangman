@@ -46,9 +46,11 @@ function viewModel() {
             return;
         }
 
+        const userVm = JSON.parse(user);
+
         let partida = {
             player_two_id: vm.oponenteSelecionado(),
-            player_one_id: user.id,
+            player_one_id: userVm.id,
             indexPalavra: 0
         };
 
