@@ -19,35 +19,7 @@
     <div class="container d-flex justify-content-center vertical-center">
         <div class="jumbotron p-3 p-md-5 rounded" style="width:80%;">
             <div class="row text-center">
-                <div class="col-md-6 right-border">
-                    <p class="text-primary font-weight-bold" data-bind="text: labelJogadaRapida">Jogada Rápida</p>
-                    <img src="res/img/nerd.png" class="img-responsive"><br><br>
-                    <div class="text-left">
-                        <div class="form-group row mb-0">
-                            <div class="col-md-5 col-form-label text-secondary">
-                                <img src="res/img/usuario.png" class="img-responsive" width="20" height="20">&nbsp;
-                                <label for="nickname"><b data-bind="text: labelNickname, value: quickPlayNickname">Nickname</b></label>
-                            </div>
-                            <div class="col-md-6 pl-0">
-                                <input id="nickname" type="text" class="form-control" placeholder="Gimli951">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <div class="col-md-5 col-form-label text-secondary">
-                                <img src="res/img/idioma.png" class="img-responsive" width="19" height="20">&nbsp;
-                                <label for="idioma"><b data-bind="text: labelIdioma">Idioma</b></label>
-                            </div>
-                            <div class="col-md-6 pl-0">
-                                <select id="idioma" class="custom-select" data-bind="options: idiomas, optionsText: 'idioma', optionsValue: 'codigo', value: idiomaSelecionado"></select>
-                            </div>
-                        </div>
-                    </div>
-                    <button class="btn-action-sec" data-bind="text: labelRegras">Regras</button>
-                    <button class="btn-action">
-                        <a href="game.html" data-bind="text: labelJogar() + '!'">Jogar</a>
-                    </button>
-                </div>
-                <div class="col-md-6">
+                <div class="col-md-12">
                     <div class="mb-3">
                         <div class="row infos" style="padding:7px;padding-top:0">
                             <div class="col-md-4">
@@ -64,22 +36,22 @@
                             </div>
                         </div>
                         <div class="form-group row mt-3" style="text-align: right;">
-                            <div class="col-md-5 col-form-label text-secondary">
+                            <div class="col-md-3 col-form-label text-secondary">
                                 <label for="nickname"><b data-bind="text: labelNickname">Nickname</b></label>
                             </div>
-                            <div class="col-md-6 pl-0">
+                            <div class="col-md-8 pl-0">
                                 <input id="nickname" type="text" class="form-control" placeholder="Gimli951" data-bind="value: newNickname">
                             </div>
-                            <div class="col-md-5 col-form-label text-secondary">
+                            <div class="col-md-3 col-form-label text-secondary">
                                 <label for="email"><b data-bind="text: labelEmail">E-mail</b></label>
                             </div>
-                            <div class="col-md-6 pl-0">
+                            <div class="col-md-8 pl-0">
                                 <input id="email" type="text" class="form-control" placeholder="lord_gimli@gmail.com" data-bind="value: newEmail">
                             </div>
-                            <div class="col-md-5 col-form-label text-secondary">
+                            <div class="col-md-3 col-form-label text-secondary">
                                 <label for="senha"><b data-bind="text: labelSenha">Senha</b></label>
                             </div>
-                            <div class="col-md-6 pl-0">
+                            <div class="col-md-8 pl-0">
                                 <input id="senha" type="password" class="form-control" placeholder="******" data-bind="value: newPassword">
                             </div>
                             <div class="col-md-12 mt-3" style="text-align: center!important;">
@@ -88,6 +60,19 @@
                         </div>
                     </div>
                     <div class="mt-5">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group row">
+                                    <div class="col-md-4 col-form-label text-secondary">
+                                        <img src="res/img/idioma.png" class="img-responsive" width="19" height="20">&nbsp;
+                                        <label for="idioma"><b data-bind="text: labelIdioma">Idioma</b></label>
+                                    </div>
+                                    <div class="col-md-4 pl-0">
+                                        <select id="idioma" class="custom-select" data-bind="options: idiomas, optionsText: 'idioma', optionsValue: 'codigo', value: idiomaSelecionado"></select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <div class="row">
                             <div class="col-md-4" style="padding-right: 0!important;">
                                 <input id="nickname" type="text" class="form-control" data-bind="attr: { placeholder: labelNickname() }, value: nickname">

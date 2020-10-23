@@ -104,3 +104,8 @@ select, input {
     font-size: 3rem;
     font-weight: bolder;
 }
+
+#novaPlavra{
+    margin-bottom: 1rem;
+    border-bottom: #4d4d4d 1px;
+}
