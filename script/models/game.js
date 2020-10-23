@@ -1,4 +1,12 @@
 function viewModel() {
+    const user = JSON.parse(localStorage.getItem('user'));
+    let seconds = 0;
+
+    var myfunc = setInterval(function() {
+        seconds++;
+        document.getElementById("seconds").innerHTML = (seconds.toString().length > 1) ? seconds: `0${seconds}`;
+    }, 1000)
+
     let vm = this;
 
     let palavras = [
@@ -42,7 +50,6 @@ function viewModel() {
     vm.pontuacao.subscribe(v => {
         if (v) {
             animar();
-
             if (v == 6) {
                 toastr.error("Que pena, você matou o Sr. Hangman.");
                 vm.jogoFinalizado(true);

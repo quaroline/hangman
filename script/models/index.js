@@ -139,16 +139,16 @@ function viewModel() {
 
     vm.cadastrar = function () {
         if (!vm.newEmail() || !vm.newNickname() || !vm.newPassword()) {
-            toastr.error("Preencha todos os campos.");
+            // toastr.error("Preencha todos os campos.");
         }
 
-        $.post(`${api}/users`, {
+        $.post(`${api}users`, {
             name: vm.newNickname(),
             email: vm.newEmail(),
             password: vm.newPassword()
-        }).done(function(s) {
-            console.log(e);
-            alert("Sucesso. Olha o console");
+        }).done(function(response) {
+            localStorage.setItem('user',JSON.stringify(response));
+            window.location.href = 'game.html';
         }).fail(function(e) {
             console.log(e);
             alert("Erro. Olha o console");

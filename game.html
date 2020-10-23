@@ -1,52 +1,65 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sr. Hangman • Adivinhe & Salve-o</title>
-    <link rel="icon" type="image/png" href="res/img/marca.png">
+    <link rel="icon" type="image/png" href="res/img/marca.png" />
     <!-- Styles -->
-    <link rel="stylesheet" href="style/style.css">
-    <link rel="stylesheet" href="style/bootstrap.min.css">
-    <link rel="stylesheet" href="style/bootstrap-grid.min.css">
-    <link rel="stylesheet" href="style/toastr.min.css">
+    <link rel="stylesheet" href="style/style.css" />
+    <link rel="stylesheet" href="style/bootstrap.min.css" />
+    <link rel="stylesheet" href="style/bootstrap-grid.min.css" />
+    <link rel="stylesheet" href="style/toastr.min.css" />
     <!-- Scripts -->
-    <script type='text/javascript' src='script/knockout-3.5.js'></script>
-    <script type='text/javascript' src='script/jquery-3.5.1.min.js'></script>
-    <script type='text/javascript' src='script/bootstrap.min.js'></script>
-    <script type='text/javascript' src='script/toastr.min.js'></script>
-</head>
-<body>
+    <script type="text/javascript" src="script/knockout-3.5.js"></script>
+    <script type="text/javascript" src="script/jquery-3.5.1.min.js"></script>
+    <script type="text/javascript" src="script/bootstrap.min.js"></script>
+    <script type="text/javascript" src="script/toastr.min.js"></script>
+  </head>
+  <body>
     <!-- Não esquecer de deixar só o conteúdo do body no arquivo original -->
     <div class="container d-flex justify-content-center vertical-center">
-        <div class="jumbotron p-3 p-md-5 rounded" style="width:80%;">
-            <div class="row text-center">
-                <div class="col-md-12">
-                    <canvas id="stickman"></canvas>
-                </div>
-                <!-- ko if: !jogoFinalizado() -->
-                <div class="col-md-12" data-bind="foreach: palavraCensuradaSeparada()">
-                    <span class="underline" data-bind="text: $data"></span>
-                </div>
-                <div data-bind="foreach: alfabeto" class="text-center mt-5 mr-5 ml-5">
-                    <button class="btn-action mb-2" data-bind="text: $data, click: $root.selecionarLetra"></button>
-                </div>
-                <div class="col-md-12 mt-5">
-                    <button class="btn-action-danger" data-bind="click: abrirDica">Dica</button>
-                </div>
-                <!-- /ko -->
-                <!-- ko if: jogoFinalizado() -->
-                <div class="col-md-12" data-bind="foreach: palavraSorteadaSeparada()">
-                    <span class="underline" data-bind="text: $data"></span>
-                </div>
-                <div class="col-md-12">
-                    <button class="btn-action-danger" data-bind="click: novoJogo">Novo Jogo</button>
-                </div>
-                <!-- /ko -->
-            </div>
+      <div class="jumbotron p-3 p-md-5 rounded" style="width: 80%">
+        <div class="row text-center">
+          <p id="seconds"></p>
         </div>
+        <div class="row text-center">
+          <div class="col-md-12">
+            <canvas id="stickman"></canvas>
+          </div>
+          <!-- ko if: !jogoFinalizado() -->
+          <div
+            class="col-md-12"
+            data-bind="foreach: palavraCensuradaSeparada()"
+          >
+            <span class="underline" data-bind="text: $data"></span>
+          </div>
+          <div data-bind="foreach: alfabeto" class="text-center mt-5 mr-5 ml-5">
+            <button
+              class="btn-action mb-2"
+              data-bind="text: $data, click: $root.selecionarLetra"
+            ></button>
+          </div>
+          <div class="col-md-12 mt-5">
+            <button class="btn-action-danger" data-bind="click: abrirDica">
+              Dica
+            </button>
+          </div>
+          <!-- /ko -->
+          <!-- ko if: jogoFinalizado() -->
+          <div class="col-md-12" data-bind="foreach: palavraSorteadaSeparada()">
+            <span class="underline" data-bind="text: $data"></span>
+          </div>
+          <div class="col-md-12">
+            <button class="btn-action-danger" data-bind="click: novoJogo">
+              Novo Jogo
+            </button>
+          </div>
+          <!-- /ko -->
+        </div>
+      </div>
     </div>
-    <script type='text/javascript' src='script/models/game.js'></script>
+    <script type="text/javascript" src="script/models/game.js"></script>
     <!-- Não esquecer de deixar só o conteúdo do body no arquivo original -->
-</body>
+  </body>
 </html>
