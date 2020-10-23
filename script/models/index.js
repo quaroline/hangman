@@ -137,7 +137,9 @@ function viewModel() {
 
     vm.cadastrar = function () {
         if (!vm.newEmail() || !vm.newNickname() || !vm.newPassword()) {
-            toastr.error("Preencha todos os campos.");
+            toastr.warning("Preencha todos os campos.");
+
+            return;
         }
 
         let usuario = {
@@ -147,6 +149,9 @@ function viewModel() {
         };
 
         $.post(`${api}/users`, usuario).done(function(s) {
+            usuario.password = null;
+            usuario.id = s.id;
+
             localStorage.setItem('hangman_user', JSON.stringify(usuario));
 
             toastr.success("Usuário criado com sucesso.");
@@ -158,6 +163,33 @@ function viewModel() {
             } else {
                 toastr.error("Erro interno. Contate um administrador.");
             }
+        });
+    }
+
+    vm.login = function () {
+        if (!vm.email() || !vm.password()) {
+            toastr.warning("Preencha e-mail e senha.");
+
+            return;
+        }
+
+        let usuario = {
+            email: vm.email(),
+            password: vm.password()
+        };
+
+        $.post(`${api}/users`, usuario).done(function(s) {
+            usuario.id = s.id;
+
+            localStorage.setItem('hangman_user', JSON.stringify(usuario));
+
+            if (s.admin) {
+                window.location.href = 'painelAdmin.html';
+            } else {
+                window.location.href = 'game.html';
+            }
+        }).fail(function(e) {
+            toastr.error("Credenciais erradas.");
         });
     }
 }
