@@ -28,27 +28,27 @@
                 <div class="mt-5">
                     <div class="row">
                         <div class="col-md-3" style="padding-right: 0!important;">
-                            <input id="novaPalavra" type="text" class="form-control"  placeholder= "Nova Palavra" required>
+                            <input id="novaPalavra" type="text" class="form-control"  placeholder= "Nova Palavra" data-bind="value: novaPalavra" required>
                         </div>
                         <div class="col-md-3" style="padding-right: 0!important;">
-                            <input id="dica" type="text" class="form-control"  placeholder= "Dica" required>
+                            <input id="dica" type="text" class="form-control"  placeholder= "Dica" data-bind="value: dica" required>
                         </div>
                         <div class="col-md-3" style="padding-right: 0!important;">
-                            <select id= "escolhaCategoria" class="form-control" required>
+                            <select id= "escolhaCategoria" class="form-control" data-bind="value: escolhaCategoria" required>
                                 <option value="" disabled="" hidden="" selected>Categoria</option>
                             </select>
                         </div>
                         <div class="col-md-3">
-                            <button id="cadastrar" type="button" class="btn-action">Cadastrar</button>
+                            <button id="cadastrarPalavra" type="button" class="btn-action" data-bind="click: cadastrarPalavra">Cadastrar</button>
                         </div>
                     </div>
                     <br><br>
                     <div class="row">
                         <div class="col-md-9" style="padding-right: 0!important;">
-                            <input id="novaCategoria" type="text" class="form-control"  placeholder= "Nova Categoria" required>
+                            <input id="novaCategoria" type="text" class="form-control"  placeholder= "Nova Categoria" data-bind="value: novaCategoria" required>
                         </div>
                         <div class="col-md-3">
-                            <button id="cadastrar" type="button" class="btn-action">Cadastrar</button>
+                            <button id="cadastrarCategoria" type="button" class="btn-action"data-bind="click: cadastrarCategoria">Cadastrar</button>
                         </div>
                     </div>
                     <br><br>
@@ -109,7 +109,7 @@
             </div>
         </div>
     </div>
-    <script type='text/javascript' src='script/models/game.js'></script>
+    <script type='text/javascript' src='./script/models/painelAdmin.js'></script>
     <!-- Não esquecer de deixar só o conteúdo do body no arquivo original -->
 </body>
 </html>
