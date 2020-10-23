@@ -104,8 +104,8 @@
                   <table>
                       <thead>
                           <tr>
-                            <td>Deletar</td>
                             <td>Editar</td>
+                            <td>Deletar</td>
                             <td>Código</td>
                             <td>Categoria</td>
                             <td>Nome</td>
@@ -115,7 +115,7 @@
                       <tbody data-bind="foreach: palavrasArray()">
                           <tr>
                             <td>
-                                <a href="" id="deletar" class="deletar">
+                                <a id="deletar" class="deletar" data-bind="click: $root.deletarPalavra">
                                     <img src="./res/img/pencil.png" alt="Editar"/>
                                 </a>
                             </td>

@@ -48,9 +48,8 @@ function viewModel(){
         });
     }
 
-    vm.deletarPalavra = () =>{
-        return true;
-        // $.delete(`${api}/words/${id}`)
+    vm.deletarPalavra = (data,evento) =>{
+        // $.delete(`${api}/words/${data.id}`)
         //     .done(response => {
         //         response?.data.map(r => vm.categoriasArray.push(r));
         //     }).fail(error => console.log(error));
