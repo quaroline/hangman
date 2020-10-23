@@ -51,12 +51,12 @@
                 <select
                   id="escolhaCategoria"
                   class="form-control"
-                  data-bind="value: escolhaCategoria"
+                  data-bind="options: categoriasArray,
+                  optionsText: 'name',
+                  value:escolhaCategoria
+                  "
                   required
                 >
-                  <option value="" disabled="" hidden="" selected>
-                    Categoria
-                  </option>
                 </select>
               </div>
               <div class="col-md-3">
