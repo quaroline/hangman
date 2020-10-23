@@ -107,15 +107,18 @@ function viewModel() {
 
     vm.jogoFinalizado.subscribe(v => {
         if (v) {
-            partidaVm.indexPalavra = parseInt(partida.indexPalavra) + 1;
-
             if (user.id == partidaVm.player_one_id) {
                 points_player_one = pontuacaoPlayer;
             } else {
                 points_player_two = pontuacaoPlayer;
             }
 
-            $.put(`${api}/pvp-games/${idPartida}`, partidaVm).done(function(s) {
+            $.ajax({
+                type: 'PUT',
+                url: `${api}/pvp-games/${idPartida}`,
+                contentType: 'application/json',
+                data: JSON.stringify(partidaVm)
+            }).done(function(s) {
                 toastr.warning("Você finalizou esta partida.");
 
                 if (s.points_player_one && s.points_player_two) {
