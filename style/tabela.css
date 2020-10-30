@@ -1,25 +1,29 @@
-img{
-    width: 25px;
-    height: 25px;
+img {
+  width: 25px;
+  height: 25px;
 }
 
-.tabela{
-    width: 100%;
-    max-width: 94rem;
-    border-radius: .8rem;
-    margin: 1rem auto 1rem;
+.tabela {
+  width: 100%;
+  max-width: 94rem;
+  border-radius: 0.8rem;
+  margin: 1rem auto 1rem;
 }
 
-table{
-    text-align: center;
-    table-layout: fixed;
-    width: 100%;
-    border-radius: .8rem;
+table {
+  text-align: left;
+  table-layout: fixed;
+  width: 100%;
+  border-radius: 0.8rem;
 }
 
-table tr:first-child{
-    background-color: #333;
-    color: #fff;
-    padding: 15px 0;
-    width: 500px;
+table thead tr:first-child {
+  background-color: #333;
+  color: #fff;
+  padding: 15px 0;
+  width: 500px;
+}
+
+table tbody tr {
+  border-bottom: 1px solid #333;
 }
