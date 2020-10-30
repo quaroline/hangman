@@ -9,22 +9,79 @@ function viewModel() {
 
     let vm = this;
 
-    let palavras = [
-        { palavra: "Aurea", dica: "Lei sancionada pela Princesa Dona Isabel" },
-        { palavra: "Vacina", dica: "Revolta que aconteceu no Rio de Janeiro" },
-        { palavra: "Velha", dica: "Oficialmente a república dos estados unidos do Brasil" },
-        { palavra: "Medici", dica: "\"Brasil, ame-o ou deixe-o\"" },
-        { palavra: "Mercantil", dica: "Tipo de navios brasileiros que foram afundados na segunda guerra mundial" },
-        { palavra: "Tancredo", dica: "Morreu antes de tomar posse" },
-        { palavra: "Sarney", dica: "\"Rouba, mas faz\"" },
-        { palavra: "MDB", dica: "Oposição aos partidos militares durante a ditadura" },
-        { palavra: "Escambo", dica: "Atividade de troca antes de um sistema monetário" },
-        { palavra: "Cana-de-açucar", dica: "Primeiro produto explorado na época colonial" },
-        { palavra: "Guararapes", dica: "Batalha que originou o Exército Brasileiro" },
-        { palavra: "Recife", dica: "Maior cosmopolita cidade da América durante governo de Maurício Nassau" },
-        { palavra: "Salvador", dica: "Primeira capital do Brasil" },
-        { palavra: "Iluminismo", dica: "Movimento responsável pelos três poderes políticos" }
-    ];
+    let query = window.location.search;
+
+    let api = 'https://ulbra-hanged.herokuapp.com/api';
+
+    let error = function () {
+        setTimeout(function() {
+            window.location.href = "iniciar_game.html";
+        }, 1000);
+    }
+
+    if (!query) {
+        toastr.error("Informe o código identificador da partida na URL.");
+
+        error();
+
+        return;
+    }
+
+    let idPartida = new URLSearchParams(query).get('partida');
+
+    if (!idPartida) {
+        toastr.error("Informe o código identificador da partida na URL.");
+
+        error();
+
+        return;
+    }
+
+    let palavras = [];
+
+    let retornarVencedor = function(points_player_one, points_player_two) {
+        return points_player_one == points_player_two ? "Empate." : "Vencedor: " + 
+                    points_player_two > points_player_one ? "Jogador Convidado." : "Jogador da Casa.";
+    }
+
+    $.get(`${api}/pvp-games/${idPartida}`).done(function(s) {
+        if (s.points_player_one && s.points_player_two) {
+            
+            let resultado = retornarVencedor(s.points_player_one, s.points_player_two);
+
+            toastr.error("Partida já finalizada. " + resultado);
+            
+            error();
+        }
+
+        if (!localStorage.getItem('partida')) {
+            partida = { 
+                player_one_id: s.player_one_id,
+                player_two_id: s.player_two_id,
+                indexPalavra: 0
+            };
+
+            localStorage.setItem('partida', JSON.stringify(partida));
+        }
+
+        $.get(`${api}/pvp-games/${s.categoria_id}/random-words`).done(function(s2) {
+            palavras = s2.data;
+        }).fail(function(e) {
+            toastr.error("Erro ao buscar palavras.");
+        });
+    }).fail(function(e) {
+        toastr.error("Identificador de partida incorreto.");
+    });
+
+    const partida = localStorage.getItem('partida');
+
+    const user = localStorage.getItem('hangman_user');
+
+    if (!user) {
+        window.location.href = "index.html";
+    }
+
+    let partidaVm = JSON.parse(partida);
 
     vm.alfabeto = [
         'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 
@@ -33,24 +90,53 @@ function viewModel() {
 
     vm.jogoFinalizado = ko.observable(false);
 
-    let indicePalavraSorteada = Math.floor(Math.random() * palavras.length);
+    let palavraSorteada = palavras[partidaVm.indexPalavra];
 
-    let palavraSorteada = palavras[indicePalavraSorteada];
+    let palavraSorteadaSeparada = palavraSorteada.name.split('').map(v => v.toLowerCase());
 
-    let palavraSorteadaSeparada = palavraSorteada.palavra.split('').map(v => v.toLowerCase());
-
-    let palavraCensuradaSeparada = palavraSorteada.palavra.replace(/[A-zç]/gi,'_').split('').map(v => v.toLowerCase());
+    let palavraCensuradaSeparada = palavraSorteada.name.replace(/[A-zç]/gi,'_').split('').map(v => v.toLowerCase());
 
     vm.palavraSorteadaSeparada = ko.observableArray(palavraSorteadaSeparada);
 
     vm.palavraCensuradaSeparada = ko.observableArray(palavraCensuradaSeparada);
 
-    vm.pontuacao = ko.observable(0);
+    vm.pontuacao = ko.observable(6);
+
+    let pontuacaoPlayer = 0;
+
+    vm.jogoFinalizado.subscribe(v => {
+        if (v) {
+            partidaVm.indexPalavra = parseInt(partida.indexPalavra) + 1;
+
+            if (user.id == partidaVm.player_one_id) {
+                points_player_one = pontuacaoPlayer;
+            } else {
+                points_player_two = pontuacaoPlayer;
+            }
+
+            $.put(`${api}/pvp-games/${idPartida}`, partidaVm).done(function(s) {
+                toastr.warning("Você finalizou esta partida.");
+
+                if (s.points_player_one && s.points_player_two) {
+                    toastr.success(retornarVencedor(s.points_player_one, s.points_player_two));
+                }
+            }).fail(function(e) {
+                toastr.error("Erro ao atualizar pontuação.");
+            });
+            
+            setTimeout(function() {
+                window.location.href = "iniciar_game.html";
+            }, 1000);
+            
+            return;
+        }
+    })
 
     vm.pontuacao.subscribe(v => {
         if (v) {
             animar();
-            if (v == 6) {
+
+            if (v == 0) {
                 toastr.error("Que pena, você matou o Sr. Hangman.");
                 vm.jogoFinalizado(true);
             }
@@ -61,7 +147,9 @@ function viewModel() {
         if (v && !vm.palavraCensuradaSeparada().includes("_")) {
             vm.jogoFinalizado(true);
 
-            toastr.success("Parabéns! Você venceu o jogo!");
+            pontuacaoPlayer += 1000;
+
+            toastr.success("Parabéns! +1000 pontos!");
         }
     });
     
@@ -69,8 +157,8 @@ function viewModel() {
 
     vm.abrirDica = function() {
         if (!dicaUtilizada) {
-            toastr.warning(palavraSorteada.dica);
-            vm.pontuacao(vm.pontuacao() + 1);
+            toastr.warning(palavraSorteada.hint);
+            vm.pontuacao(vm.pontuacao() - 1);
         }
         else
             toastr.error('Você já utilizou sua dica!');
@@ -81,22 +169,20 @@ function viewModel() {
     vm.selecionarLetra = function(data) {
         if (data) {
             if (!palavraSorteadaSeparada.includes(data) || !palavraSorteadaSeparada.includes(data)) {
-                vm.pontuacao(vm.pontuacao() + 1);
+                vm.pontuacao(vm.pontuacao() - 1);
             } else {
                 for (let i = 0; i < palavraSorteadaSeparada.length; i++) {
                     if (palavraSorteadaSeparada[i] == data) {
                         var clone = vm.palavraCensuradaSeparada.slice(0);
                         clone[i] = data;
 
+                        pontuacaoPlayer += 10;
+
                         vm.palavraCensuradaSeparada(clone);
                     }
                 }         
             }    
         }
-    }
-
-    vm.novoJogo = function() {
-        location.reload();
     }
 
     let desenharCabeca = function() {

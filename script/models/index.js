@@ -125,7 +125,7 @@ function viewModel() {
 
     vm.idiomaSelecionado('pt');
 
-    let api = 'https://ulbra-hanged.herokuapp.com/api/';
+    let api = 'https://ulbra-hanged.herokuapp.com/api';
 
     vm.nickname = ko.observable();
     vm.password = ko.observable();
@@ -135,23 +135,64 @@ function viewModel() {
     vm.newEmail = ko.observable();
     vm.newPassword = ko.observable();
 
-    vm.quickPlayNickname = ko.observable();
-
     vm.cadastrar = function () {
         if (!vm.newEmail() || !vm.newNickname() || !vm.newPassword()) {
-            // toastr.error("Preencha todos os campos.");
+            toastr.warning("Preencha todos os campos.");
+
+            return;
         }
 
-        $.post(`${api}users`, {
+        let usuario = {
             name: vm.newNickname(),
             email: vm.newEmail(),
             password: vm.newPassword()
-        }).done(function(response) {
-            localStorage.setItem('user',JSON.stringify(response));
-            window.location.href = 'game.html';
+        };
+
+        $.post(`${api}/users`, usuario).done(function(s) {
+            usuario.password = null;
+            usuario.id = s.id;
+
+            localStorage.setItem('hangman_user', JSON.stringify(usuario));
+
+            toastr.success("Usuário criado com sucesso.");
+
+            window.location = '/game.html';
         }).fail(function(e) {
-            console.log(e);
-            alert("Erro. Olha o console");
+            if (e && e.responseText && e.respondeText.includes("Duplicate entry")) {
+                toastr.error("Já existe um usuário com estas credenciais.");
+            } else {
+                toastr.error("Erro interno. Contate um administrador.");
+            }
+        });
+    }
+
+    vm.login = function () {
+        console.log('sdfpjskfposdkf')
+        if (!vm.email() || !vm.password()) {
+            toastr.warning("Preencha e-mail e senha.");
+
+            return;
+        }
+        console.log('login')
+
+        let usuario = {
+            email: vm.email(),
+            password: vm.password()
+        };
+
+
+        $.post(`${api}/users`, usuario).done(function(s) {
+            usuario.id = s.id;
+
+            localStorage.setItem('hangman_user', JSON.stringify(usuario));
+
+            if (s.admin) {
+                window.location.href = 'painelAdmin.html';
+            } else {
+                window.location.href = 'game.html';
+            }
+        }).fail(function(e) {
+            toastr.error("Credenciais erradas.");
         });
     }
 }

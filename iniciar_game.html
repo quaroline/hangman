@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sr. Hangman • Adivinhe & Salve-o</title>
+    <link rel="icon" type="image/png" href="res/img/marca.png">
+    <!-- Styles -->
+    <link rel="stylesheet" href="style/style.css">
+    <link rel="stylesheet" href="style/bootstrap.min.css">
+    <link rel="stylesheet" href="style/bootstrap-grid.min.css">
+    <!-- Scripts -->
+    <script type='text/javascript' src='script/knockout-3.5.js'></script>
+    <script type='text/javascript' src='script/jquery-3.5.1.min.js'></script>
+    <script type='text/javascript' src='script/bootstrap.min.js'></script>
+    <script type='text/javascript' src='script/toastr.min.js'></script>
+</head>
+<body>
+    <!-- Não esquecer de deixar só o conteúdo do body no arquivo original -->
+    <div class="container d-flex justify-content-center vertical-center">
+        <div class="jumbotron p-3 p-md-5 rounded" style="width:80%;">
+            <div class="row text-center">
+                <div class="col-md-2">
+                    &nbsp;
+                </div>
+                <div class="col-md-8">
+                    <div class="mb-3">
+                        <div class="infos" style="padding:7px;padding-top:0">
+                            <img src="res/img/nerd.png" style="height: 150px"><br/>
+                        </div>
+                        <div class="form-group mt-3" style="text-align: right;">
+                            <div class="row">
+                                <div class="col-md-3 col-form-label text-secondary">
+                                    <label for="oponente"><b>Oponente</b></label>
+                                </div>
+                                <div class="col-md-6 pl-0">
+                                    <!-- ko if: oponentes().length > 0 -->
+                                    <select 
+                                        name="oponente" class="form-control" id="oponentes" 
+                                        data-bind="
+                                            options: oponentes, 
+                                            value: oponenteSelecionado, 
+                                            optionsCaption: 'Escolha...', 
+                                            optionsValue: 'id', 
+                                            optionsText: function(item) {
+                                                return item.name.replace('_', ' ').toUpperCase();
+                                            }">
+                                    </select>
+                                    <!-- /ko -->
+                                    <!-- ko if: oponentes().length <= 0 -->
+                                    <select class="form-control">
+                                        <option value="0">Carregando...</option>
+                                    </select>
+                                    <!-- /ko -->
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3 col-form-label text-secondary">
+                                    <label for="categoria"><b>Categoria</b></label>
+                                </div>
+                                <div class="col-md-6 pl-0">
+                                    <!-- ko if: categorias().length > 0 -->
+                                    <select 
+                                        name="categoria" class="form-control" id="categorias" 
+                                        data-bind="
+                                            options: categorias, 
+                                            value: categoriaSelecionada, 
+                                            optionsCaption: 'Escolha...', 
+                                            optionsValue: 'id', 
+                                            optionsText: function(item) {
+                                                return item.name.replace('_', ' ').toUpperCase();
+                                            }">
+                                    </select>
+                                    <!-- /ko -->
+                                    <!-- ko if: categorias().length <= 0 -->
+                                    <select class="form-control">
+                                        <option value="0">Carregando...</option>
+                                    </select>
+                                    <!-- /ko -->
+                                </div>
+                            </div>
+                            <div class="col-md-12 mt-3" style="text-align: center!important;">
+                                <button id="cadastrar" type="button" class="btn-action" data-bind="click: iniciarJogo">Iniciar Jogo</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type='text/javascript' src='script/models/iniciar_game.js'></script>
+    <script>
+        // const user = localStorage.getItem('hangman_user');
+
+        // if (!user) {
+        //     window.location.href = "index.html";
+        // }
+    </script>
+    <!-- Não esquecer de deixar só o conteúdo do body no arquivo original -->
+</body>
+</html>
