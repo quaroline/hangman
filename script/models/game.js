@@ -44,6 +44,16 @@ function viewModel() {
                     points_player_two > points_player_one ? "Jogador Convidado." : "Jogador da Casa.";
     }
 
+    let palavraSorteada = "";
+
+    let palavraSorteadaSeparada = "";
+
+    let palavraCensuradaSeparada = "";
+
+    vm.palavraSorteadaSeparada = ko.observableArray();
+
+    vm.palavraCensuradaSeparada = ko.observableArray();
+
     $.get(`${api}/pvp-games/${idPartida}`).done(function(s) {
         if (s.points_player_one && s.points_player_two) {
             
@@ -64,13 +74,22 @@ function viewModel() {
             localStorage.setItem('partida', JSON.stringify(partida));
         }
 
-        $.get(`${api}/pvp-games/${s.categoria_id}/random-words`).done(function(s2) {
-            palavras = s2.data;
+        $.get(`${api}/categories/${s.category_id}/random-words`).done(function(s2) {
+            palavras = s2;
+
+            palavraSorteada = palavras[partidaVm.indexPalavra];
+            palavraSorteadaSeparada = palavraSorteada.name.split('').map(v => v.toLowerCase());
+            palavraCensuradaSeparada = palavraSorteada.name.replace(/[A-zç]/gi,'_').split('').map(v => v.toLowerCase());
+
+            vm.palavraSorteadaSeparada(palavraSorteadaSeparada);
+            vm.palavraCensuradaSeparada(palavraCensuradaSeparada);
         }).fail(function(e) {
             toastr.error("Erro ao buscar palavras.");
+            error();
         });
     }).fail(function(e) {
         toastr.error("Identificador de partida incorreto.");
+        error();
     });
 
     const partida = localStorage.getItem('partida');
@@ -90,31 +109,24 @@ function viewModel() {
 
     vm.jogoFinalizado = ko.observable(false);
 
-    let palavraSorteada = palavras[partidaVm.indexPalavra];
-
-    let palavraSorteadaSeparada = palavraSorteada.name.split('').map(v => v.toLowerCase());
-
-    let palavraCensuradaSeparada = palavraSorteada.name.replace(/[A-zç]/gi,'_').split('').map(v => v.toLowerCase());
-
-    vm.palavraSorteadaSeparada = ko.observableArray(palavraSorteadaSeparada);
-
-    vm.palavraCensuradaSeparada = ko.observableArray(palavraCensuradaSeparada);
-
-    vm.pontuacao = ko.observable(6);
+    vm.pontuacao = ko.observable(0);
 
     let pontuacaoPlayer = 0;
 
     vm.jogoFinalizado.subscribe(v => {
         if (v) {
-            partidaVm.indexPalavra = parseInt(partida.indexPalavra) + 1;
-
             if (user.id == partidaVm.player_one_id) {
                 points_player_one = pontuacaoPlayer;
             } else {
                 points_player_two = pontuacaoPlayer;
             }
 
-            $.put(`${api}/pvp-games/${idPartida}`, partidaVm).done(function(s) {
+            $.ajax({
+                type: 'PUT',
+                url: `${api}/pvp-games/${idPartida}`,
+                contentType: 'application/json',
+                data: JSON.stringify(partidaVm)
+            }).done(function(s) {
                 toastr.warning("Você finalizou esta partida.");
 
                 if (s.points_player_one && s.points_player_two) {
@@ -136,7 +148,7 @@ function viewModel() {
         if (v) {
             animar();
 
-            if (v == 0) {
+            if (v == 6) {
                 toastr.error("Que pena, você matou o Sr. Hangman.");
                 vm.jogoFinalizado(true);
             }
@@ -158,7 +170,7 @@ function viewModel() {
     vm.abrirDica = function() {
         if (!dicaUtilizada) {
             toastr.warning(palavraSorteada.hint);
-            vm.pontuacao(vm.pontuacao() - 1);
+            vm.pontuacao(vm.pontuacao() + 1);
         }
         else
             toastr.error('Você já utilizou sua dica!');
@@ -169,7 +181,7 @@ function viewModel() {
     vm.selecionarLetra = function(data) {
         if (data) {
             if (!palavraSorteadaSeparada.includes(data) || !palavraSorteadaSeparada.includes(data)) {
-                vm.pontuacao(vm.pontuacao() - 1);
+                vm.pontuacao(vm.pontuacao() + 1);
             } else {
                 for (let i = 0; i < palavraSorteadaSeparada.length; i++) {
                     if (palavraSorteadaSeparada[i] == data) {
@@ -204,7 +216,7 @@ function viewModel() {
 
     var animar = function() {
         let drawMe = vm.pontuacao();
-
+        debugger;
         desenhos[drawMe - 1]();
     }
 

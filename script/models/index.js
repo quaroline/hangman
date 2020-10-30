@@ -129,7 +129,7 @@ function viewModel() {
 
     vm.nickname = ko.observable();
     vm.password = ko.observable();
-    vm.login = ko.observable();
+    vm.email = ko.observable();
     
     vm.newNickname = ko.observable();
     vm.newEmail = ko.observable();
@@ -156,7 +156,7 @@ function viewModel() {
 
             toastr.success("Usuário criado com sucesso.");
 
-            window.location = '/game.html';
+            window.location = 'iniciar_game.html';
         }).fail(function(e) {
             if (e && e.responseText && e.respondeText.includes("Duplicate entry")) {
                 toastr.error("Já existe um usuário com estas credenciais.");
@@ -167,7 +167,6 @@ function viewModel() {
     }
 
     vm.login = function () {
-        console.log('sdfpjskfposdkf')
         if (!vm.email() || !vm.password()) {
             toastr.warning("Preencha e-mail e senha.");
 
@@ -176,12 +175,12 @@ function viewModel() {
         console.log('login')
 
         let usuario = {
-            email: vm.email(),
+            nickname: vm.nickname(),
             password: vm.password()
         };
 
-
-        $.post(`${api}/users`, usuario).done(function(s) {
+        debugger;
+        $.get(`${api}/users`, usuario).done(function(s) {
             usuario.id = s.id;
 
             localStorage.setItem('hangman_user', JSON.stringify(usuario));
@@ -189,7 +188,7 @@ function viewModel() {
             if (s.admin) {
                 window.location.href = 'painelAdmin.html';
             } else {
-                window.location.href = 'game.html';
+                window.location.href = 'iniciar_game.html';
             }
         }).fail(function(e) {
             toastr.error("Credenciais erradas.");
