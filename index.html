@@ -1,114 +1,175 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sr. Hangman • Adivinhe & Salve-o</title>
-    <link rel="icon" type="image/png" href="res/img/marca.png">
+    <link rel="icon" type="image/png" href="res/img/marca.png" />
     <!-- Styles -->
-    <link rel="stylesheet" href="style/style.css">
-    <link rel="stylesheet" href="style/bootstrap.min.css">
-    <link rel="stylesheet" href="style/bootstrap-grid.min.css">
+    <link rel="stylesheet" href="style/style.css" />
+    <link rel="stylesheet" href="style/bootstrap.min.css" />
+    <link rel="stylesheet" href="style/bootstrap-grid.min.css" />
     <!-- Scripts -->
-    <script type='text/javascript' src='script/knockout-3.5.js'></script>
-    <script type='text/javascript' src='script/jquery-3.5.1.min.js'></script>
-    <script type='text/javascript' src='script/bootstrap.min.js'></script>
-    <script type='text/javascript' src='script/toastr.min.js'></script>
-</head>
-<body>
+    <script type="text/javascript" src="script/knockout-3.5.js"></script>
+    <script type="text/javascript" src="script/jquery-3.5.1.min.js"></script>
+    <script type="text/javascript" src="script/bootstrap.min.js"></script>
+    <script type="text/javascript" src="script/toastr.min.js"></script>
+  </head>
+  <body>
     <!-- Não esquecer de deixar só o conteúdo do body no arquivo original -->
     <div class="container d-flex justify-content-center vertical-center">
-        <div class="jumbotron p-3 p-md-5 rounded" style="width:80%;">
-            <div class="row text-center">
-                <div class="col-md-2">
-                    &nbsp;
+      <div class="jumbotron p-3 p-md-5 rounded" style="width: 80%">
+        <div class="row text-center">
+          <div class="col-md-2">&nbsp;</div>
+          <div class="col-md-8">
+            <div class="mb-3">
+              <div class="row infos" style="padding: 7px; padding-top: 0">
+                <div class="col-md-4">
+                  <img src="res/img/score.png" style="height: 90px" /><br />
+                  <label data-bind="text: labelMarcarPontos"></label>
                 </div>
-                <div class="col-md-8">
-                    <div class="mb-3">
-                        <div class="row infos" style="padding:7px;padding-top:0">
-                            <div class="col-md-4">
-                                <img src="res/img/score.png" style="height: 90px"><br/>
-                                <label data-bind="text: labelMarcarPontos"></label>
-                            </div>
-                            <div class="col-md-4">
-                                <img src="res/img/chat.png" style="height: 90px"><br/>
-                                <label data-bind="text: labelChat"></label>
-                            </div>
-                            <div class="col-md-4">
-                                <img src="res/img/heart.png" style="height: 90px"><br/>
-                                <label data-bind="text: labelFavoritar"></label>
-                            </div>
-                        </div>
-                        <div class="form-group mt-3" style="text-align: right;">
-                            <div class="row">
-                                <div class="col-md-3 col-form-label text-secondary">
-                                    <label for="nickname"><b data-bind="text: labelNickname">Nickname</b></label>
-                                </div>
-                                <div class="col-md-6 pl-0">
-                                    <input id="nickname" type="text" class="form-control" placeholder="Gimli951" data-bind="value: newNickname">
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-3 col-form-label text-secondary">
-                                    <label for="email"><b data-bind="text: labelEmail">E-mail</b></label>
-                                </div>
-                                <div class="col-md-6 pl-0">
-                                    <input id="email" type="text" class="form-control" placeholder="lord_gimli@gmail.com" data-bind="value: newEmail">
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-3 col-form-label text-secondary">
-                                    <label for="senha"><b data-bind="text: labelSenha">Senha</b></label>
-                                </div>
-                                <div class="col-md-6 pl-0">
-                                    <input id="senha" type="password" class="form-control" placeholder="******" data-bind="value: newPassword">
-                                </div>
-                            </div>
-                            <div class="col-md-12 mt-3" style="text-align: center!important;">
-                                <button id="cadastrar" type="button" class="btn-action" data-bind="text: labelCadastro, click: cadastrar"></button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="mt-5">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="form-group row">
-                                    <div class="col-md-4 col-form-label text-secondary">
-                                        <img src="res/img/idioma.png" class="img-responsive" width="19" height="20">&nbsp;
-                                        <label for="idioma"><b data-bind="text: labelIdioma">Idioma</b></label>
-                                    </div>
-                                    <div class="col-md-4 pl-0">
-                                        <select id="idioma" class="custom-select" data-bind="options: idiomas, optionsText: 'idioma', optionsValue: 'codigo', value: idiomaSelecionado"></select>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-4" style="padding-right: 0!important;">
-                                <input id="nickname" type="text" class="form-control" data-bind="attr: { placeholder: labelNickname() }, value: nickname">
-                            </div>
-                            <div class="col-md-4" style="padding-right: 0!important;">
-                                <input id="senha" type="password" class="form-control" placeholder="******" data-bind="value: password">
-                            </div>
-                            <div class="col-md-4">
-                                <button id="entrar" type="button" class="btn-action" data-bind="text: labelLogin, click: login">
-                            </div>
-                        </div>
-                    </div>
+                <div class="col-md-4">
+                  <img src="res/img/chat.png" style="height: 90px" /><br />
+                  <label data-bind="text: labelChat"></label>
                 </div>
-                <div class="col-md-2">
-                    &nbsp;
+                <div class="col-md-4">
+                  <img src="res/img/heart.png" style="height: 90px" /><br />
+                  <label data-bind="text: labelFavoritar"></label>
                 </div>
-                <div class="col-md-12" data-bind="visible: idiomaSelecionado() != 'pt'">
-                    <div class="aviso">
-                        <h5 class="font-weight-bold text-danger" data-bind="text: labelAviso() +'!'"></h5>
-                        <p data-bind="text: labelDescricaoAviso"></p>
-                    </div>
+              </div>
+              <div class="form-group mt-3" style="text-align: right">
+                <div class="row">
+                  <div class="col-md-3 col-form-label text-secondary">
+                    <label for="nickname"
+                      ><b data-bind="text: labelNickname">Nickname</b></label
+                    >
+                  </div>
+                  <div class="col-md-6 pl-0">
+                    <input
+                      id="nickname"
+                      type="text"
+                      class="form-control"
+                      placeholder="Gimli951"
+                      data-bind="value: newNickname"
+                    />
+                  </div>
                 </div>
+                <div class="row">
+                  <div class="col-md-3 col-form-label text-secondary">
+                    <label for="email"
+                      ><b data-bind="text: labelEmail">E-mail</b></label
+                    >
+                  </div>
+                  <div class="col-md-6 pl-0">
+                    <input
+                      id="email"
+                      type="text"
+                      class="form-control"
+                      placeholder="lord_gimli@gmail.com"
+                      data-bind="value: newEmail"
+                    />
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-3 col-form-label text-secondary">
+                    <label for="senha"
+                      ><b data-bind="text: labelSenha">Senha</b></label
+                    >
+                  </div>
+                  <div class="col-md-6 pl-0">
+                    <input
+                      id="senha"
+                      type="password"
+                      class="form-control"
+                      placeholder="******"
+                      data-bind="value: newPassword"
+                    />
+                  </div>
+                </div>
+                <div
+                  class="col-md-12 mt-3"
+                  style="text-align: center !important"
+                >
+                  <button
+                    id="cadastrar"
+                    type="button"
+                    class="btn-action"
+                    data-bind="text: labelCadastro, click: cadastrar"
+                  ></button>
+                </div>
+              </div>
             </div>
+            <div class="mt-5">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group row">
+                    <div class="col-md-4 col-form-label text-secondary">
+                      <img
+                        src="res/img/idioma.png"
+                        class="img-responsive"
+                        width="19"
+                        height="20"
+                      />&nbsp;
+                      <label for="idioma"
+                        ><b data-bind="text: labelIdioma">Idioma</b></label
+                      >
+                    </div>
+                    <div class="col-md-4 pl-0">
+                      <select
+                        id="idioma"
+                        class="custom-select"
+                        data-bind="options: idiomas, optionsText: 'idioma', optionsValue: 'codigo', value: idiomaSelecionado"
+                      ></select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-4" style="padding-right: 0 !important">
+                  <input
+                    id="nickname"
+                    type="text"
+                    class="form-control"
+                    data-bind="attr: { placeholder: labelNickname() }, value: nickname"
+                  />
+                </div>
+                <div class="col-md-4" style="padding-right: 0 !important">
+                  <input
+                    id="senha"
+                    type="password"
+                    class="form-control"
+                    placeholder="******"
+                    data-bind="value: password"
+                  />
+                </div>
+                <div class="col-md-4">
+                  <button
+                    id="entrar"
+                    type="button"
+                    class="btn-action"
+                    data-bind="text: labelLogin, click: login"
+                  ></button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-2">&nbsp;</div>
+          <div
+            class="col-md-12"
+            data-bind="visible: idiomaSelecionado() != 'pt'"
+          >
+            <div class="aviso">
+              <h5
+                class="font-weight-bold text-danger"
+                data-bind="text: labelAviso() +'!'"
+              ></h5>
+              <p data-bind="text: labelDescricaoAviso"></p>
+            </div>
+          </div>
         </div>
+      </div>
     </div>
-    <script type='text/javascript' src='script/models/index.js'></script>
+    <script type="text/javascript" src="script/models/index.js"></script>
     <!-- Não esquecer de deixar só o conteúdo do body no arquivo original -->
-</body>
+  </body>
 </html>

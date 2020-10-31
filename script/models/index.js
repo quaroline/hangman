@@ -136,6 +136,7 @@ function viewModel() {
     vm.newPassword = ko.observable();
 
     vm.cadastrar = function () {
+        console.log('cadastrar')
         if (!vm.newEmail() || !vm.newNickname() || !vm.newPassword()) {
             toastr.warning("Preencha todos os campos.");
 
@@ -167,24 +168,23 @@ function viewModel() {
     }
 
     vm.login = function () {
-        if (!vm.email() || !vm.password()) {
+        console.log('chegou aqui')
+        
+        if (!vm.nickname() || !vm.password()) {
+            console.log('entrou aqui')
             toastr.warning("Preencha e-mail e senha.");
-
             return;
         }
-        console.log('login')
 
         let usuario = {
             nickname: vm.nickname(),
             password: vm.password()
         };
+       
 
-        debugger;
-        $.get(`${api}/users`, usuario).done(function(s) {
+        $.post(`${api}/login`, usuario).done(function(s) {
             usuario.id = s.id;
-
             localStorage.setItem('hangman_user', JSON.stringify(usuario));
-
             if (s.admin) {
                 window.location.href = 'painelAdmin.html';
             } else {
