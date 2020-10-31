@@ -1,16 +1,9 @@
 function viewModel() {
     const user = JSON.parse(localStorage.getItem('user'));
-    let seconds = 0;
-
-    var myfunc = setInterval(function() {
-        seconds++;
-        document.getElementById("seconds").innerHTML = (seconds.toString().length > 1) ? seconds: `0${seconds}`;
-    }, 1000)
 
     let vm = this;
 
     let query = window.location.search;
-
     let api = 'https://ulbra-hanged.herokuapp.com/api';
 
     let error = function () {
@@ -18,6 +11,13 @@ function viewModel() {
             window.location.href = "iniciar_game.html";
         }, 1000);
     }
+
+    let seconds = 0;
+
+    var setSeconds = setInterval(function() {
+        seconds++;        
+        document.getElementById("seconds").innerHTML = (seconds.toString().length > 1) ? seconds: `0${seconds}`;
+    }, 100);
 
     if (!query) {
         toastr.error("Informe o código identificador da partida na URL.");
@@ -94,8 +94,6 @@ function viewModel() {
 
     const partida = localStorage.getItem('partida');
 
-    const user = localStorage.getItem('hangman_user');
-
     if (!user) {
         window.location.href = "index.html";
     }
@@ -128,7 +126,7 @@ function viewModel() {
                 data: JSON.stringify(partidaVm)
             }).done(function(s) {
                 toastr.warning("Você finalizou esta partida.");
-
+                console.log('caiu aqui papi')
                 if (s.points_player_one && s.points_player_two) {
                     toastr.success(retornarVencedor(s.points_player_one, s.points_player_two));
                 }
@@ -136,9 +134,9 @@ function viewModel() {
                 toastr.error("Erro ao atualizar pontuação.");
             });
             
-            setTimeout(function() {
-                window.location.href = "iniciar_game.html";
-            }, 1000);
+            // setTimeout(function() {
+            //     window.location.href = "iniciar_game.html";
+            // }, 1000);
             
             return;
         }
@@ -197,6 +195,10 @@ function viewModel() {
         }
     }
 
+    vm.novoJogo = function() {
+        
+    }
+
     let desenharCabeca = function() {
         myStickman = document.getElementById("stickman");
         context = myStickman.getContext('2d');
@@ -216,7 +218,6 @@ function viewModel() {
 
     var animar = function() {
         let drawMe = vm.pontuacao();
-        debugger;
         desenhos[drawMe - 1]();
     }
 

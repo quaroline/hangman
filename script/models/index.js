@@ -170,20 +170,19 @@ function viewModel() {
     vm.login = function () {
         console.log('chegou aqui')
         
-        if (!vm.nickname() || !vm.password()) {
-            console.log('entrou aqui')
+        if (!vm.email() || !vm.password()) {
             toastr.warning("Preencha e-mail e senha.");
             return;
         }
 
         let usuario = {
-            nickname: vm.nickname(),
+            email: vm.email(),
             password: vm.password()
         };
        
 
         $.post(`${api}/login`, usuario).done(function(s) {
-            usuario.id = s.id;
+            usuario = s;
             localStorage.setItem('hangman_user', JSON.stringify(usuario));
             if (s.admin) {
                 window.location.href = 'painelAdmin.html';
